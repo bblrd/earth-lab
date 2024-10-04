@@ -3,7 +3,7 @@
 """
 Created on Sep  11, 2024
 
-Lesson 5. Lesson 5. Calculate Summary Values Using Spatial Areas of Interest (AOIs) 
+Lesson 5. Calculate Summary Values Using Spatial Areas of Interest (AOIs) 
 including Shapefiles for Climate Data Variables Stored in NetCDF 4 Format: 
 Work With MACA v2 Climate Data in Python
 

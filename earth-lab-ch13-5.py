@@ -49,10 +49,6 @@ with xr.open_dataset(data_path_monthly) as file_nc:
 monthly_forecast_temp_xr
 
 
-
-
-
-
 #%% #################
 
 
@@ -64,15 +60,7 @@ url =  (
 states_gdf = gpd.read_file(url)
 states_gdf.head()
 
-
-
-
-
-
-
 #%% #################
-
-
 
 # You will use the bounds to determine the slice values for this data
 # Select any state in the CONUS that you wish here! California is the default
@@ -81,17 +69,7 @@ cali_aoi = states_gdf[states_gdf.name == "California"]
 cali_aoi.total_bounds
 
 
-
-
-
-
-
-
-
 #%% #################
-
-
-
 
 # Get lat min, max
 aoi_lat = [float(cali_aoi.total_bounds[1]), float(cali_aoi.total_bounds[3])]
@@ -101,28 +79,12 @@ aoi_lon = [float(cali_aoi.total_bounds[0]), float(cali_aoi.total_bounds[2])]
 aoi_lat, aoi_lon
 
 
-
-
-
-
-
-
-
-
 #%% #################
-
-
-
-
 
 # The netcdf files use a global lat/lon so adjust values accordingly
 aoi_lon[0] = aoi_lon[0] + 360
 aoi_lon[1] = aoi_lon[1] + 360
 aoi_lon
-
-
-
-
 
 
 #%% #################

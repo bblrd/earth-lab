@@ -68,7 +68,6 @@ cali_aoi = states_gdf[states_gdf.name == "California"]
 # Get the total spatial extent for California
 cali_aoi.total_bounds
 
-
 #%% #################
 
 # Get lat min, max
@@ -78,7 +77,6 @@ aoi_lon = [float(cali_aoi.total_bounds[0]), float(cali_aoi.total_bounds[2])]
 # we need these values in a global crs so we can subtract from 360
 aoi_lat, aoi_lon
 
-
 #%% #################
 
 # The netcdf files use a global lat/lon so adjust values accordingly
@@ -86,9 +84,7 @@ aoi_lon[0] = aoi_lon[0] + 360
 aoi_lon[1] = aoi_lon[1] + 360
 aoi_lon
 
-
 #%% #################
-
 
 # Slice the data by time and spatial extent
 start_date = "2010-01-15"
@@ -100,26 +96,13 @@ two_months_cali = monthly_forecast_temp_xr["air_temperature"].sel(
     lat=slice(aoi_lat[0], aoi_lat[1]))
 two_months_cali
 
-
-
-
-
 #%% #################
-
 
 # Plot a quick histogram
 two_months_cali.plot()
 plt.show()
 
-
-
-
-
-
 #%% #################
-
-
-
 
 # Spatial Plot for the selected AOI (California)
 two_months_cali.plot(col='time',
@@ -127,14 +110,7 @@ two_months_cali.plot(col='time',
 
 plt.show()
 
-
-
-
-
-
 #%% #################
-
-
 
 # Only subset by location / not time
 cali_ts = monthly_forecast_temp_xr["air_temperature"].sel(
@@ -142,14 +118,7 @@ cali_ts = monthly_forecast_temp_xr["air_temperature"].sel(
     lat=slice(aoi_lat[0], aoi_lat[1]))
 cali_ts
 
-
-
-
-
-
 #%% #################
-
-
 
 # Time series plot of max temperature per year. for California
 # You will get a RuntimeWarning warning here because of nan values...

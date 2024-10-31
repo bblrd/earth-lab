@@ -126,28 +126,12 @@ cali_ts
 cali_annual_max = cali_ts.groupby('time.year').max(skipna=True)
 cali_annual_max
 
-
-
-
-
-
 #%% #################
-
-
-
 
 cali_annual_max_val = cali_annual_max.groupby("year").max(["lat", "lon"])
 cali_annual_max_val
 
-
-
-
-
-
-
 #%% #################
-
-
 
 # Plot the data
 f, ax = plt.subplots(figsize=(12, 6))
@@ -160,18 +144,7 @@ cali_annual_max_val.plot.line(hue='lat',
 ax.set(title="Annual Max Temperature (K) in California")
 plt.show()
 
-
-
-
-
-
-
-
-
 #%% #################
-
-
-
 
 # This is the AOI of interest. You only want to calculate summary values for
 # pixels within this AOI rather the entire rectangular spatial extent.
@@ -181,27 +154,11 @@ ax.set(title="California AOI Subset")
 
 plt.show()
 
-
-
-
-
-
-
-
 #%% #################
-
 
 cali_aoi
 
-
-
-
-
-
-
-
 #%% #################
-
 
 # Create a 3d mask - this contains the true / false values identifying pixels
 # inside vs outside of the mask region
@@ -210,61 +167,24 @@ cali_mask = regionmask.mask_3D_geopandas(cali_aoi,
                                          monthly_forecast_temp_xr.lat)
 cali_mask
 
-
-
-
-
-
-
-
-
 #%% #################
-
-
-
 
 # Slice out two months of data
 two_months = monthly_forecast_temp_xr.sel(
     time=slice('2099-10-25', '2099-12-15'))
 
-
-
-
-
-
-
-
 #%% #################
-
-
 
 # Apply the mask for California to the data
 two_months = two_months.where(cali_mask)
 two_months
 
-
-
-
-
-
-
-
-
 #%% #################
-
-
-
-
-
 
 two_months["air_temperature"].plot(col='time',
                                    col_wrap=1,
                                    figsize=(10, 10))
 plt.show()
-
-
-
-
 
 #%% #################
 
@@ -277,18 +197,7 @@ two_months_masked = monthly_forecast_temp_xr["air_temperature"].sel(time=slice('
                                                                               aoi_lat[1])).where(cali_mask)
 two_months_masked.dims
 
-
-
-
-
-
-
-
-
-
 #%% #################
-
-
 
 # Start by extracting a few states from the states_gdf
 states_gdf["name"]
@@ -298,33 +207,14 @@ cali_or_wash_nev = states_gdf[states_gdf.name.isin(
 cali_or_wash_nev.plot()
 plt.show()
 
-
-
-
-
-
-
 #%% #################
-
-
 
 west_mask = regionmask.mask_3D_geopandas(cali_or_wash_nev,
                                          monthly_forecast_temp_xr.lon,
                                          monthly_forecast_temp_xr.lat)
 west_mask
 
-
-
-
-
-
-
-
-
-
 #%% #################
-
-
 
 def get_aoi(shp, world=True):
     """Takes a geopandas object and converts it to a lat/ lon
@@ -357,16 +247,7 @@ def get_aoi(shp, world=True):
 
 west_bounds = get_aoi(cali_or_wash_nev)
 
-
-
-
-
-
-
-
-
 #%% #################
-
 
 # Slice the data
 start_date = "2010-01-15"
@@ -378,14 +259,6 @@ two_months_west_coast = monthly_forecast_temp_xr["air_temperature"].sel(
     lon=slice(west_bounds["lon"][0], west_bounds["lon"][1]),
     lat=slice(west_bounds["lat"][0], west_bounds["lat"][1]))
 two_months_west_coast
-
-
-
-
-
-
-
-
 
 #%% #################
 

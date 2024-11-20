@@ -51,8 +51,6 @@ with xr.open_dataset(data_path_monthly) as file_nc:
 # xarray object
 monthly_forecast_temp_xr
 
-
-
 #%% #################
 
 # In the example below you subset data for the state of California similar to what you 
@@ -65,8 +63,6 @@ url =  (
 )
 states_gdf = gpd.read_file(url)
 cali_aoi = states_gdf[states_gdf.name == "California"]
-
-
 
 #%% #################
 
@@ -89,7 +85,6 @@ def get_aoi(shp, world=True):
     lon_lat["lat"] = aoi_lat
     return lon_lat
 
-
 #%% #################
 
 # Get lat min, max from Cali aoi extent
@@ -105,21 +100,24 @@ cali_temp = monthly_forecast_temp_xr["air_temperature"].sel(
     lat=slice(cali_bounds["lat"][0], cali_bounds["lat"][1]))
 cali_temp
 
+#%% #################
+
+print("Time Period start: ", cali_temp.time.min().values)
+print("Time Period end: ", cali_temp.time.max().values)
 
 #%% #################
 
-
-
-
-
-
-
-#%% #################
-
-
-
-
-
+# Create the region mask object - this is used to identify each region
+# cali_region = regionmask.from_geopandas(cali_aoi,
+#                                         names="name",
+#                                         name="name",
+#                                         abbrevs="iso_3166_2")
+cali_mask = regionmask.mask_3D_geopandas(cali_aoi,
+                                         monthly_forecast_temp_xr.lon,
+                                         monthly_forecast_temp_xr.lat)
+# Mask the netcdf data
+cali_temp_masked = cali_temp.where(cali_mask)
+cali_temp_masked.dims
 
 #%% #################
 

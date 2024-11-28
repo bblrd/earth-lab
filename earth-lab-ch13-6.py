@@ -121,24 +121,27 @@ cali_temp_masked.dims
 
 #%% #################
 
+cali_temp.values.shape
+
+#%% #################
 
 
+cali_season_summary = cali_temp_masked.groupby(
+    'time.season').mean('time', skipna=True)
+
+# This will create 4 arrays - one for each season showing mean temperature values
+cali_season_summary.shape
 
 
 #%% #################
 
 
+# Create a plot showing mean temperature aross seasons
+cali_season_summary.plot(col='season', col_wrap=2, figsize=(10, 10))
+plt.suptitle("Mean Temperature Across All Selected Years By Season \n California, USA",
+             y=1.05)
 
-
-
-
-
-
-#%% #################
-
-
-
-
+plt.show()
 
 
 #%% #################

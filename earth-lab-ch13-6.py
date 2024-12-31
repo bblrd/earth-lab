@@ -132,9 +132,7 @@ cali_season_summary = cali_temp_masked.groupby(
 # This will create 4 arrays - one for each season showing mean temperature values
 cali_season_summary.shape
 
-
 #%% #################
-
 
 # Create a plot showing mean temperature aross seasons
 cali_season_summary.plot(col='season', col_wrap=2, figsize=(10, 10))
@@ -157,16 +155,12 @@ cali_season_mean_all_years = cali_temp_masked.resample(
     time='QS-DEC', keep_attrs=True).mean()
 cali_season_mean_all_years.shape
 
-
-
 #%% #################
 
 # Summarize each array into one single (mean) value
 cali_seasonal_mean = cali_season_mean_all_years.groupby('time').mean([
     "lat", "lon"])
 cali_seasonal_mean.shape
-
-
 
 #%% #################
 

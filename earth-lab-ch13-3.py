@@ -21,6 +21,7 @@ import seaborn as sns
 
 #%% #################
 
+
 # Plotting options
 sns.set(font_scale=1.3)
 sns.set_style("white")
@@ -98,6 +99,7 @@ climate scenario.
 
 #%% #################
 
+
 # Select Data Download Options
 # Below you first create lists containing the the options that you wish to use to download your data.
 
@@ -161,6 +163,7 @@ domain = 'CONUS'
 
 #%% #################
 
+
 # Next, select the options that you want to use for your data download.
 
 # Model options between 0-19
@@ -185,7 +188,9 @@ except IndexError as e:
 # Model: BNU-ESM, 
 # Scenario: rcp85
 
+
 #%% #################
+
 
 # Finally, use the scenario variable to select the time period associated with the options selected above.
 
@@ -200,52 +205,8 @@ except IndexError as e:
 # Your selected time period is: 2006_2099
 
 
-
 #%% #################
 
 
 
-
-
-
-
-
-
-
 #%% #################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#%% #################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -10,6 +10,7 @@ from: https://www.earthdatascience.org/courses/use-data-open-source-python/hiera
 @author: bblrd
 """
 
+# Import packages
 # netCDF4 needs to be installed in your environment for this to work
 import os
 import numpy as np
@@ -35,6 +36,7 @@ sns.set_style("white")
 
 #%% #################
 
+
 # The (online) url for a MACAv2 dataset for max monthly temperature
 data_path = "http://thredds.northwestknowledge.net:8080/thredds/dodsC/agg_macav2metdata_tasmax_BNU-ESM_r1i1p1_historical_1950_2005_CONUS_monthly.nc"
 
@@ -43,14 +45,12 @@ max_temp_xr  = xr.open_dataset(data_path)
 max_temp_xr
 
 
-
 #%% #################
+
 
 # For later - grab the crs of the data using rioxarray
 climate_crs = max_temp_xr.rio.crs
 climate_crs
-
-
 
 
 #%% #################
@@ -67,8 +67,6 @@ print("The min and max longitude values in the data is:",
       max_temp_xr["air_temperature"]["lon"].values.max())
 
 
-
-
 #%% #################
 
 
@@ -78,12 +76,10 @@ print("The earliest date in the data is:", max_temp_xr["air_temperature"]["time"
 print("The latest date in the data is:", max_temp_xr["air_temperature"]["time"].values.max())  
 
 
-
 #%% #################
 
 
 max_temp_xr["air_temperature"]["time"].values.shape
-
 
 
 #%% #################
@@ -94,13 +90,11 @@ metadata = max_temp_xr.attrs
 metadata
 
 
-
 #%% #################
 
 
 # View data title
 metadata["title"]
-
 
 
 #%% #################
@@ -114,9 +108,7 @@ latitude = max_temp_xr["air_temperature"]["lat"].values[key]
 print("Long, Lat values:", longitude, latitude)
 
 
-
 #%% #################
-
 
 
 # Create a spatial map of your selected location with cartopy
@@ -148,7 +140,6 @@ ax.gridlines()
 plt.show()
 
 
-
 #%% #################
 
 
@@ -158,23 +149,18 @@ one_point = max_temp_xr["air_temperature"].sel(lat=latitude,
 one_point
 
 
-
-
 #%% #################
-
 
 
 # Notice the shape of the output array
 one_point.shape
 
 
-
 #%% #################
+
 
 # View the first 5 values for that single point
 one_point.values[:5]
-
-
 
 
 #%% #################
@@ -185,8 +171,8 @@ one_point.plot.line()
 plt.show()
 
 
-
 #%% #################
+
 
 # You can clean up your plot as you wish using standard matplotlib approaches
 f, ax = plt.subplots(figsize=(12, 6))
@@ -203,7 +189,6 @@ ax.set(title="Time Series For a Single Lat / Lon Location")
 plt.show()
 
 
-
 #%% #################
 
 
@@ -213,13 +198,11 @@ one_point_df = one_point.to_dataframe()
 one_point_df.head()
 
 
-
 #%% #################
 
 
 # Export data to .csv file
 one_point_df.to_csv("one-location.csv")
-
 
 
 #%% #################
@@ -233,12 +216,10 @@ temp_2000_2005 = max_temp_xr["air_temperature"].sel(time=slice(start_date, end_d
 temp_2000_2005
 
 
-
 #%% #################
 
 
 temp_2000_2005.shape
-
 
 
 #%% #################
@@ -263,8 +244,8 @@ ax.set(title="A 5 Year Time Series of Temperature Data For A Single Location")
 plt.show()
 
 
-
 #%% #################
+
 
 # Convert to dataframe -- then this can be exported to a csv if you want that
 temp_2000_2005_df = temp_2000_2005.to_dataframe()
@@ -273,6 +254,7 @@ temp_2000_2005_df.head()
 
 
 #%% #################
+
 
 # Create filename from subset info
 file_name = "monthly-temp-" + start_date + "-" + end_date + ".csv"
@@ -288,6 +270,7 @@ temp_2000_2005_df.to_csv(file_name)
 
 #%% #################
 
+
 start_date = "1950-01-15"
 end_date = "1950-02-15"
 
@@ -299,10 +282,12 @@ two_months_conus
 
 #%% #################
 
+
 two_months_conus.shape
 
 
 #%% #################
+
 
 # Directly plot just a single day using time in "years"
 two_months_conus.plot()
@@ -310,6 +295,7 @@ plt.show()
 
 
 #%% #################
+
 
 # Quickly plot the data using xarray.plot()
 two_months_conus.plot(x="lon",
@@ -322,6 +308,7 @@ plt.show()
 
 #%% #################
 
+
 # Plot the data using 2 columns
 two_months_conus.plot(x="lon",
                       y="lat",
@@ -331,6 +318,7 @@ plt.show()
 
 
 #%% #################
+
 
 central_lat = 37.5
 central_long = 96
@@ -355,11 +343,13 @@ for ax in p.axes.flat:
 
 #%% #################
 
+
 # Double check the crs still exist
 two_months_conus.rio.crs
 
 
 #%% #################
+
 
 # Export to geotiff
 file_path = "two_months_temp_data.tif"
@@ -412,5 +402,4 @@ plt.show()
 
 
 
-
-
+#%% #################

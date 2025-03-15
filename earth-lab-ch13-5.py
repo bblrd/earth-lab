@@ -3,7 +3,7 @@
 """
 Created on Sep  11, 2024
 
-Lesson 5. Calculate Summary Values Using Spatial Areas of Interest (AOIs) 
+Lesson 5. Lesson 5. Calculate Summary Values Using Spatial Areas of Interest (AOIs) 
 including Shapefiles for Climate Data Variables Stored in NetCDF 4 Format: 
 Work With MACA v2 Climate Data in Python
 
@@ -33,10 +33,10 @@ sns.set_style("white")
 
 # Optional - set your working directory if you wish to use the data
 # accessed lower down in this notebook (the USA state boundary data)
-os.chdir(os.path.join(et.io.HOME, 'earth-analytics', 'data'))
-
+# os.chdir(os.path.join(et.io.HOME, 'earth-analytics', 'data'))
 
 #%% #################
+
 
 # Get netcdf file
 data_path_monthly = 'http://thredds.northwestknowledge.net:8080/thredds/dodsC/agg_macav2metdata_tasmax_BNU-ESM_r1i1p1_rcp45_2006_2099_CONUS_monthly.nc'
@@ -60,7 +60,9 @@ url =  (
 states_gdf = gpd.read_file(url)
 states_gdf.head()
 
+
 #%% #################
+
 
 # You will use the bounds to determine the slice values for this data
 # Select any state in the CONUS that you wish here! California is the default
@@ -68,7 +70,9 @@ cali_aoi = states_gdf[states_gdf.name == "California"]
 # Get the total spatial extent for California
 cali_aoi.total_bounds
 
+
 #%% #################
+
 
 # Get lat min, max
 aoi_lat = [float(cali_aoi.total_bounds[1]), float(cali_aoi.total_bounds[3])]
@@ -77,14 +81,18 @@ aoi_lon = [float(cali_aoi.total_bounds[0]), float(cali_aoi.total_bounds[2])]
 # we need these values in a global crs so we can subtract from 360
 aoi_lat, aoi_lon
 
+
 #%% #################
+
 
 # The netcdf files use a global lat/lon so adjust values accordingly
 aoi_lon[0] = aoi_lon[0] + 360
 aoi_lon[1] = aoi_lon[1] + 360
 aoi_lon
 
+
 #%% #################
+
 
 # Slice the data by time and spatial extent
 start_date = "2010-01-15"
@@ -96,13 +104,17 @@ two_months_cali = monthly_forecast_temp_xr["air_temperature"].sel(
     lat=slice(aoi_lat[0], aoi_lat[1]))
 two_months_cali
 
+
 #%% #################
+
 
 # Plot a quick histogram
 two_months_cali.plot()
 plt.show()
 
+
 #%% #################
+
 
 # Spatial Plot for the selected AOI (California)
 two_months_cali.plot(col='time',
@@ -110,7 +122,9 @@ two_months_cali.plot(col='time',
 
 plt.show()
 
+
 #%% #################
+
 
 # Only subset by location / not time
 cali_ts = monthly_forecast_temp_xr["air_temperature"].sel(
@@ -118,7 +132,9 @@ cali_ts = monthly_forecast_temp_xr["air_temperature"].sel(
     lat=slice(aoi_lat[0], aoi_lat[1]))
 cali_ts
 
+
 #%% #################
+
 
 # Time series plot of max temperature per year. for California
 # You will get a RuntimeWarning warning here because of nan values...
@@ -126,12 +142,16 @@ cali_ts
 cali_annual_max = cali_ts.groupby('time.year').max(skipna=True)
 cali_annual_max
 
+
 #%% #################
+
 
 cali_annual_max_val = cali_annual_max.groupby("year").max(["lat", "lon"])
 cali_annual_max_val
 
+
 #%% #################
+
 
 # Plot the data
 f, ax = plt.subplots(figsize=(12, 6))
@@ -144,7 +164,9 @@ cali_annual_max_val.plot.line(hue='lat',
 ax.set(title="Annual Max Temperature (K) in California")
 plt.show()
 
+
 #%% #################
+
 
 # This is the AOI of interest. You only want to calculate summary values for
 # pixels within this AOI rather the entire rectangular spatial extent.
@@ -154,11 +176,15 @@ ax.set(title="California AOI Subset")
 
 plt.show()
 
+
 #%% #################
+
 
 cali_aoi
 
+
 #%% #################
+
 
 # Create a 3d mask - this contains the true / false values identifying pixels
 # inside vs outside of the mask region
@@ -167,24 +193,31 @@ cali_mask = regionmask.mask_3D_geopandas(cali_aoi,
                                          monthly_forecast_temp_xr.lat)
 cali_mask
 
+
 #%% #################
+
 
 # Slice out two months of data
 two_months = monthly_forecast_temp_xr.sel(
     time=slice('2099-10-25', '2099-12-15'))
 
+
 #%% #################
+
 
 # Apply the mask for California to the data
 two_months = two_months.where(cali_mask)
 two_months
 
+
 #%% #################
+
 
 two_months["air_temperature"].plot(col='time',
                                    col_wrap=1,
                                    figsize=(10, 10))
 plt.show()
+
 
 #%% #################
 
@@ -197,7 +230,9 @@ two_months_masked = monthly_forecast_temp_xr["air_temperature"].sel(time=slice('
                                                                               aoi_lat[1])).where(cali_mask)
 two_months_masked.dims
 
+
 #%% #################
+
 
 # Start by extracting a few states from the states_gdf
 states_gdf["name"]
@@ -207,14 +242,18 @@ cali_or_wash_nev = states_gdf[states_gdf.name.isin(
 cali_or_wash_nev.plot()
 plt.show()
 
+
 #%% #################
+
 
 west_mask = regionmask.mask_3D_geopandas(cali_or_wash_nev,
                                          monthly_forecast_temp_xr.lon,
                                          monthly_forecast_temp_xr.lat)
 west_mask
 
+
 #%% #################
+
 
 def get_aoi(shp, world=True):
     """Takes a geopandas object and converts it to a lat/ lon
@@ -247,7 +286,9 @@ def get_aoi(shp, world=True):
 
 west_bounds = get_aoi(cali_or_wash_nev)
 
+
 #%% #################
+
 
 # Slice the data
 start_date = "2010-01-15"
@@ -260,8 +301,8 @@ two_months_west_coast = monthly_forecast_temp_xr["air_temperature"].sel(
     lat=slice(west_bounds["lat"][0], west_bounds["lat"][1]))
 two_months_west_coast
 
-#%% #################
 
+#%% #################
 
 
 two_months_west_coast.plot(col="time",
@@ -270,18 +311,7 @@ two_months_west_coast.plot(col="time",
 plt.show()
 
 
-
-
-
-
-
-
-
-
-
-
 #%% #################
-
 
 
 # Apply the mask for the west coast subset
@@ -289,53 +319,20 @@ two_months_west_coast = two_months_west_coast.where(west_mask)
 two_months_west_coast.dims
 
 
-
-
-
-
-
-
-
-
-
-
-
 #%% #################
-
-
-
 
 
 cali_or_wash_nev
 
 
-
-
-
-
-
-
-
 #%% #################
-
-
 
 
 # Note that the region values align with the index of the geodataframe above
 two_months_west_coast.region
 
 
-
-
-
-
-
-
-
-
 #%% #################
-
-
 
 
 two_months_west_coast.plot(col="time",
@@ -344,22 +341,11 @@ two_months_west_coast.plot(col="time",
 plt.show()
 
 
-
-
-
-
 #%% #################
-
-
-
-
 
 
 summary = two_months_west_coast.groupby("time").mean(["lat", "lon"])
 summary.to_dataframe()
-
-
-
 
 
 #%% #################
@@ -385,6 +371,7 @@ def get_aoi(shp, world=True):
 
 
 #%% #################
+
 
 # Here is the entire workflow from start to end
 
@@ -441,8 +428,8 @@ two_months_west_coast.plot()
 plt.show()
 
 
-
 #%% #################
+
 
 # Keep in mind that as you add more data to your slice, the processing will slow down.
 regional_summary = two_months_west_coast.groupby("region").mean(["lat", "lon"])
@@ -457,40 +444,12 @@ plt.show()
 
 #%% #################
 
+
 two_months_west_coast.groupby("region").mean(["lat", "lon"]).to_dataframe()
 
 
-
 #%% #################
 
 
 
 #%% #################
-
-
-
-#%% #################
-
-
-
-#%% #################
-
-
-
-#%% #################
-
-
-
-#%% #################
-
-
-
-#%% #################
-
-
-
-
-
-
-
-

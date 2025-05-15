@@ -78,7 +78,12 @@ modis_pre_bands
 
 #%% #################
 
-
+# Use rasterio to print all of the subdataset names in the data
+# Here you can see the group names: MODIS_Grid_500m_2D & MODIS_Grid_1km_2D
+import rasterio as rio
+with rio.open(modis_pre_path) as groups:
+    for name in groups.subdatasets:
+        print(name)
 
 #%% #################
 

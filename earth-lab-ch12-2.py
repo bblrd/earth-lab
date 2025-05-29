@@ -87,7 +87,10 @@ with rio.open(modis_pre_path) as groups:
 
 #%% #################
 
-
+# Subset by group only - Notice you have all bands in the returned object
+rxr.open_rasterio(modis_pre_path,
+                  masked=True,
+                  group="MODS_Grid_500m_2D").squeeze()
 
 #%% #################
 

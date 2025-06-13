@@ -94,16 +94,33 @@ rxr.open_rasterio(modis_pre_path,
 
 #%% #################
 
+# Open just the bands that you want to process
+desired_bands = ["sur_refl_b01_1",
+                 "sur_refl_b02_1",
+                 "sur_refl_b03_1",
+                 "sur_refl_b04_1",
+                 "sur_refl_b07_1"]
+# Notice that here, you get a single xarray object with just the bands that
+# you want to work with
+modis_pre_bands = rxr.open_rasterio(modis_pre_path,
+                                    variable=desired_bands).squeeze()
+modis_pre_bands
+
+#%% #################
 
 
 #%% #################
 
 
+#%% #################
+
 
 #%% #################
 
 
+#%% #################
 
 
+#%% #################
 
 

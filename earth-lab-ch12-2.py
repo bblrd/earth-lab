@@ -108,6 +108,11 @@ modis_pre_bands
 
 #%% #################
 
+#  view nodata value
+modis_pre_bands.sur_refl_b01_1.rio.nodata
+
+#%% #################
+
 # Open just the bands that you want to process
 desired_bands = ["sur_refl_b01_1",
                  "sur_refl_b02_1",
@@ -120,10 +125,6 @@ modis_pre_bands = rxr.open_rasterio(modis_pre_path,
                                     masked=True,
                                     variable=desired_bands).squeeze()
 modis_pre_bands
-
-
-#%% #################
-
 
 #%% #################
 

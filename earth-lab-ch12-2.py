@@ -128,9 +128,15 @@ modis_pre_bands
 
 #%% #################
 
+# Now your nodata value returns a NAN as it has been masked
+# and accounted for
+modis_pre_bands.sur_refl_b01_1.rio.nodata
 
 #%% #################
 
+# Plot band one of the data
+ep.plot_bands(modis_pre_bands.sur_refl_b01_1)
+plt.show()
 
 #%% #################
 

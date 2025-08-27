@@ -146,6 +146,16 @@ plt.show()
 
 #%% #################
 
+# Plot All MODIS Bands with EarthPy
+# Now that you have the needed reflectance data, you can plot your data using earthpy.plot_bands.
+# To plot all bands in the data, you will need to first create an Xarray DataArray object.
+
+print(type(modis_pre_bands))
+print(type(modis_pre_bands.to_array()))
+
+# You can plot each band easily using a data array object
+modis_pre_bands.to_array()
+
 #%% #################
 
 #%% #################

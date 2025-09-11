@@ -158,6 +158,12 @@ modis_pre_bands.to_array()
 
 #%% #################
 
+# Plot the data as a DataArray
+# This is only a data exploration step
+ep.plot_bands(modis_pre_bands.to_array().values,
+              figsize=(10, 6))
+plt.show()
+
 #%% #################
 
 #%% #################

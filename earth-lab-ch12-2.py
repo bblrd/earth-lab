@@ -166,6 +166,14 @@ plt.show()
 
 #%% #################
 
+# Select the rgb bands only
+rgb_bands = ['sur_refl_b01_1',
+             'sur_refl_b03_1',
+             'sur_refl_b04_1']
+# Turn the data into a DataArray
+modis_rgb_xr = modis_pre_bands[rgb_bands].to_array()
+modis_rgb_xr
+
 #%% #################
 
 #%% #################

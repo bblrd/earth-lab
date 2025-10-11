@@ -176,6 +176,13 @@ modis_rgb_xr
 
 #%% #################
 
+# Plot MODIS RGB numpy image array
+ep.plot_rgb(modis_rgb_xr.values,
+            rgb=[0, 2, 1],
+            title='RGB Image of MODIS Data')
+
+plt.show()
+
 #%% #################
 
 #%% #################

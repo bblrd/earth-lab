@@ -185,6 +185,27 @@ plt.show()
 
 #%% #################
 
+# Crop (Clip) MODIS Data Using Rioxarray
+# Above you opened and plotted MODIS reflectance data. However, the data cover a larger study area than you need. 
+# It is a good idea to crop your the data to maximize processing efficiency. Less pixels means less processing time and power needed
+
+# Open fire boundary
+fire_boundary_path = os.path.join("cold-springs-fire",
+                                  "vector_layers",
+                                  "fire-boundary-geomac",
+                                  "co_cold_springs_20160711_2200_dd83.shp")
+
+fire_boundary = gpd.read_file(fire_boundary_path)
+
+# Check the CRS of your study area extent
+fire_boundary.crs
+
+#%% #################
+
+#%% #################
+
+#%% #################
+
 #%% #################
 
 #%% #################

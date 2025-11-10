@@ -202,6 +202,13 @@ fire_boundary.crs
 
 #%% #################
 
+# Check CRS
+if not fire_boundary.crs == modis_rgb_xr.rio.crs:
+    # If the crs is not equal reproject the data
+    fire_bound_sin = fire_boundary.to_crs(modis_rgb_xr.rio.crs)
+
+fire_bound_sin.crs
+
 #%% #################
 
 #%% #################

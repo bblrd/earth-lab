@@ -211,6 +211,16 @@ fire_bound_sin.crs
 
 #%% #################
 
+# Scenario 1: Open and Clip the Data Using the CRS=Parameter
+# In the first scenario obelow, you open and clip your data. By using the crs= parameter, you can skip needing to reproject the clip extent as rioxarray does it for you.
+
+#The caveat too this approach is that it is generally slower than the other approaches. The benefit is it avoids the additional reprojection step.
+
+# Notice this is a box - representing the spatial extent
+# of your study area
+crop_bound_box = [box(*fire_boundary.total_bounds)]
+crop_bound_box[0]
+
 #%% #################
 
 #%% #################

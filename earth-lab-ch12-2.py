@@ -223,6 +223,17 @@ crop_bound_box[0]
 
 #%% #################
 
+# Notice that this is the actual shape of the fire boundary
+# First you need to decide whether you want to clip to the
+# Box /  extent (above) or the shape that you see here.
+fire_boundary.geometry[0]
+
+#%% #################
+
+#%% #################
+
+#%% #################
+
 #%% #################
 
 #%% #################

@@ -230,6 +230,27 @@ fire_boundary.geometry[0]
 
 #%% #################
 
+# Open just the bands that you want to process
+desired_bands = ["sur_refl_b01_1",
+                 "sur_refl_b02_1",
+                 "sur_refl_b03_1",
+                 "sur_refl_b04_1",
+                 "sur_refl_b07_1"]
+
+#  Create a box representing the spatial extent of your data
+crop_bound_box = [box(*fire_boundary.total_bounds)]
+# Clip the data by  chaining together rio.clip with rio.open_rasterio
+# from_disk=True allows you to only open the data that you wish to work with
+modis_pre_clip = rxr.open_rasterio(modis_pre_path,
+                                   masked=True,
+                                   variable=desired_bands).rio.clip(crop_bound_box,
+                                                                    crs=fire_boundary.crs,
+                                                                    # Include all pixels even partial pixels
+                                                                    all_touched=True,
+                                                                    from_disk=True).squeeze()
+# The final clipped data
+modis_pre_clip
+
 #%% #################
 
 #%% #################

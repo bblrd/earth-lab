@@ -253,6 +253,12 @@ modis_pre_clip
 
 #%% #################
 
+# For demonstration purpposes  i'm creating a plotting extent
+from rasterio.plot import plotting_extent
+
+modis_ext = plotting_extent(modis_pre_clip.to_array().values[0],
+                            modis_pre_clip.rio.transform())
+
 #%% #################
 
 #%% #################

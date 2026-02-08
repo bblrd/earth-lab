@@ -261,6 +261,24 @@ modis_ext = plotting_extent(modis_pre_clip.to_array().values[0],
 
 #%% #################
 
+# View cropped data
+f, ax = plt.subplots()
+ep.plot_bands(modis_pre_clip.to_array().values[0],
+              ax=ax,
+              extent=modis_ext,
+              title="Plot of data clipped to the crop box (extent)")
+fire_bound_sin.plot(ax=ax,
+                    color="green")
+plt.show()
+
+#%% #################
+
+#%% #################
+
+#%% #################
+
+#%% #################
+
 #%% #################
 
 #%% #################

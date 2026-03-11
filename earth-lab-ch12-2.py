@@ -302,6 +302,16 @@ modis_pre_clip_geom
 
 #%% #################
 
+# View cropped data  - note the  different b etew
+f, ax = plt.subplots()
+ep.plot_bands(modis_pre_clip_geom.to_array().values[0],
+              ax=ax,
+              extent=modis_ext,
+              title="Plot of the data clipped to the geometry")
+fire_bound_sin.plot(ax=ax,
+                    color="green")
+plt.show()
+
 #%% #################
 
 #%% #################

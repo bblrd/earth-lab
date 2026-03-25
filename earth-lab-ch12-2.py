@@ -314,6 +314,32 @@ plt.show()
 
 #%% #################
 
+# Scenario 3: Crop MODIS Data Using Reprojected Fire Boundary
+# In the example below, you skip the crs= argument.
+# This has assumed that you have already reprojected your vector crop extent.
+
+# You can get the crs without opening up the whole dataset using the function es.crs_check from the EarthPy package. 
+# If you were to open the dataset wihout clipping it, it’s less effecient. More data would be stored in memory in such a case. 
+# Which is why we use es.crs_check to get the crs without opening up the data fully.
+# Once you have opened and reprojected your crop extent, you can open and crop your MODIS raster data. You can do this like you did above, 
+# just be sure to leave out the crs= argument, since the data has already been reprojected! To clip to the box, call .clip([box(*boundary_name.total_bounds)]). 
+# Keep in mind, for this to work you have to import box from shapely.geometry!
+
+# Get the crs from the dataset with es.crs_check
+modis_bands_crs = es.crs_check(modis_pre_path)
+
+# Reproject the fire boundary
+fire_boundary_sin = fire_boundary.to_crs(modis_bands_crs)
+
+# Open and crop the data with the box made from the reprojected fire boundary
+modis_bands_clip = rxr.open_rasterio(modis_pre_path,
+                                     masked=True,
+                                     variable=desired_bands).rio.clip(
+                                                                     [box(*fire_bound_sin.total_bounds)],
+                                                                     all_touched=True,
+                                                                     from_disk=True).squeeze()
+modis_bands_clip
+
 #%% #################
 
 #%% #################

@@ -342,6 +342,24 @@ modis_bands_clip
 
 #%% #################
 
+# The output plot looks similar, yet the processing approach is different
+
+# View cropped data
+f, ax = plt.subplots()
+ep.plot_bands(modis_bands_clip.to_array().values[0],
+              ax=ax,
+              extent=modis_ext,
+              title="Plot of the  data  clipped  to the geometry")
+fire_bound_sin.plot(ax=ax,
+                    color="purple")
+plt.show()
+
+#%% #################
+
+#%% #################
+
+#%% #################
+
 #%% #################
 
 #%% #################

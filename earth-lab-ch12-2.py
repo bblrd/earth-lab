@@ -356,6 +356,54 @@ plt.show()
 
 #%% #################
 
+# Which Approach To Use?
+# You may be wondering which of the above scenarios is best. The answer is - it depends. 
+# We know that using the crs= parameter will likely slow down your processing, as well as provide a slightly 
+# tilted version of your geometry, however it requires less code to implement.
+
+# For small workflows it could be fine to use the approach that uses the least amount of code. 
+# For other workflows, you may want to reproject your fire boundary first and use either .clip (or clip_box) 
+# to clip your data.
+
+# Hopefully the examples above get your started in the right direction and you can customize your workflow
+# to your science goals and processing needs!
+
+# Putting it Together Efficiently
+# This entire workflow above can be consolidated into an efficient
+# function. Below is a function that combines many of the items discussed above. Note that this function does 
+# incorporate the crs= parameter which could slow processing down a bit.
+
+def open_clean_bands(band_path,
+                     crop_layer,
+                     variable=None):
+    """Open, subset and crop a MODIS h4 file.
+
+    Parameters
+    -----------
+    band_path : string 
+        A path to the array to be opened.
+    crop_layer : geopandas GeoDataFrame
+        A geopandas dataframe to be used to crop the raster data using rioxarray clip().
+    variable : List
+        A list of variables to be opened from the raster.
+
+    Returns
+    -----------
+    band : xarray DataArray
+        Cropped xarray DataArray
+    """
+
+    crop_bound_box = [box(*crop_layer.total_bounds)]
+
+    band = rxr.open_rasterio(band_path,
+                             masked=True,
+                             variable=variable).rio.clip(crop_bound_box,
+                                                         crs=crop_layer.crs,
+                                                         all_touched=True,
+                                                         from_disk=True).squeeze()
+
+    return band
+
 #%% #################
 
 #%% #################

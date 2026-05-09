@@ -406,6 +406,18 @@ def open_clean_bands(band_path,
 
 #%% #################
 
+# Open bands with function
+clean_bands = open_clean_bands(band_path=modis_pre_path,
+                               crop_layer=fire_boundary,
+                               variable=desired_bands)
+
+# Plot bands opened with function
+ep.plot_bands(clean_bands.to_array().values,
+              title=desired_bands,
+              figsize=(10, 4))
+
+plt.show()
+
 #%% #################
 
 #%% #################

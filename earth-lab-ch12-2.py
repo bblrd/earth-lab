@@ -420,6 +420,28 @@ plt.show()
 
 #%% #################
 
+# Export MODIS Data as a GeoTIFF
+
+# You can quickly export a .tif file using rioxarray. To do this you need a path to the new file 
+# that includes the new file name. Rioxarray will create a .tif file with all the correct data and metadata.
+
+# Define path and file name for new tif file
+stacked_file_path = os.path.join(os.path.dirname(modis_pre_path),
+                                 "final_output",
+                                 "modis_band_1.tif")
+
+# Get the directory needed for the defined path
+modis_dir_path = os.path.dirname(stacked_file_path)
+print("Directory to save path:", modis_dir_path)
+
+# Create the directory if it does not exist
+if not os.path.exists(modis_dir_path):
+    os.mkdir(modis_dir_path)
+    print("The directory", modis_dir_path, "does not exist - creating it now.")
+
+# Directory to save path: cold-springs-modis-h4/07_july_2016/final_output
+# The directory cold-springs-modis-h4/07_july_2016/final_output does not exist - creating it now.
+
 #%% #################
 
 #%% #################

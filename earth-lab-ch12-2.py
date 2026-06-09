@@ -444,6 +444,13 @@ if not os.path.exists(modis_dir_path):
 
 #%% #################
 
+# Export or write out a new GeoTIFF file
+
+# Here you decide how much of the data you want to export.
+# A single layer vs a stacked / array
+# Export a single band to a geotiff
+clean_bands.rio.to_raster(stacked_file_path)
+
 #%% #################
 
 #%% #################

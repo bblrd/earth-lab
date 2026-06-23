@@ -453,6 +453,22 @@ clean_bands.rio.to_raster(stacked_file_path)
 
 #%% #################
 
+# Open and view your stacked GeoTIFF.
+
+# Open the file to make sure it looks ok
+modis_b1_xr = rxr.open_rasterio(stacked_file_path,
+                                masked=True)
+
+modis_b1_xr.rio.crs, modis_b1_xr.rio.nodata
+
+#%% #################
+
+#%% #################
+
+#%% #################
+
+#%% #################
+
 #%% #################
 
 

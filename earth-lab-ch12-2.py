@@ -463,6 +463,12 @@ modis_b1_xr.rio.crs, modis_b1_xr.rio.nodata
 
 #%% #################
 
+# Plot the data
+ep.plot_bands(modis_b1_xr,
+              figsize=(10, 4))
+
+plt.show()
+
 #%% #################
 
 #%% #################

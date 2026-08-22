@@ -33,9 +33,15 @@ df.head()
 
 #%% #################
 
+url = "https://data.colorado.gov/resource/tv8u-hswn.json?$where=age between 20 and 25 and year between 2020 and 2025&county=Boulder&$select=year,age,femalepopulation"
+url = url.replace(" ", "%20")
+url
 
 #%% #################
 
+dem_data_20_25_female = pd.read_json(url)
+
+dem_data_20_25_female.head()
 
 #%% #################
 

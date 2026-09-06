@@ -45,6 +45,9 @@ dem_data_20_25_female.head()
 
 #%% #################
 
+# set year as index
+dem_data_20_25_female = dem_data_20_25_female.set_index("year")
+dem_data_20_25_female.head()
 
 #%% #################
 

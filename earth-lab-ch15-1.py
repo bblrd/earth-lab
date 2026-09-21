@@ -51,6 +51,28 @@ dem_data_20_25_female.head()
 
 #%% #################
 
+# Pivot the data for stacked plotting
+dem_data_20_25_female_pivot = dem_data_20_25_female.pivot_table('femalepopulation',
+                                                                ['year'], "age")
+dem_data_20_25_female_pivot.head()
+
+#%% #################
+
+
+#%% #################
+
+
+#%% #################
+
+
+#%% #################
+
+
+#%% #################
+
+
+#%% #################
+
 
 #%% #################
 

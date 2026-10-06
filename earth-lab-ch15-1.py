@@ -58,6 +58,22 @@ dem_data_20_25_female_pivot.head()
 
 #%% #################
 
+# Plot the data
+my_colors = ["teal",
+             "aqua",
+             "darkturquoise",
+             "powderblue",
+             "aliceblue", 
+             "lightgrey"]
+
+f, ax = plt.subplots()
+dem_data_20_25_female_pivot.plot.bar(stacked=True,
+                                     color=my_colors,
+                                     ax=ax).legend(loc='upper right',
+                                                   bbox_to_anchor=(1.2, 1.0))
+ax.set(title="Female Population in Boulder, CO by Year")
+
+plt.show()
 
 #%% #################
 

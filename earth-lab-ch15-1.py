@@ -77,6 +77,20 @@ plt.show()
 
 #%% #################
 
+# THIS will only work if you have plotly installed
+# uncomment code to run - plotly is not  yet in our ea-environment but will be added
+# conda install -c conda-forge plotly
+# pd.options.plotting.backend = "plotly"
+
+# # Plot the data
+# my_colors = ["teal",
+#              "aqua",
+#              "darkturquoise",
+#              "powderblue",
+#              "aliceblue",
+#              "lightgrey"]
+
+# dem_data_20_25_female_pivot.plot.bar(title="Female Population in Boulder, CO by Year")
 
 #%% #################
 

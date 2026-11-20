@@ -12,15 +12,19 @@ https://earthdatascience.org/courses/use-data-open-source-python/intro-to-apis/i
 @author: bblrd
 """
 
-# In this lesson, you will explore the machine readable JSON data structure.
-# Machine readable data structures are more efficient - particularly for
+# In this lesson, you will explore the machine-readable JSON data structure.
+# Machine-readable data structures are more efficient - particularly for
 # larger data that contain hierarchical structures.
 
-# In Python, JSON data is similar to a dictonary because it has keys (i.e. names) and values, but it is encoded as a string.
+# In Python, JSON data is similar to a dictionary because it has keys (i.e. names) and values, but it is encoded as a string.
 
 # Example of a name/value pair using a colon:
 { "name":"Chaya" }
 
+#%% #################
+
+# Example of objects separated by commas:
+{ "name":"Chaya", "age":12, "city":"Boulder", "type":"Canine" }
 
 
 #%% #################
@@ -50,13 +54,13 @@ https://earthdatascience.org/courses/use-data-open-source-python/intro-to-apis/i
 #%% #################
 
 
-#%% #################
-
 
 #%% #################
 
 
+
 #%% #################
+
 
 
 #%% #################
